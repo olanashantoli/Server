@@ -5,7 +5,6 @@ include 'dbconfig.php';
  
 // Creating connection.
 $con = mysqli_connect($HostName,$HostUser,$HostPass,$DatabaseName);
-
  
 // Getting the received JSON into $json variable.
 $json = file_get_contents('php://input');
@@ -14,23 +13,22 @@ $json = file_get_contents('php://input');
 $obj = json_decode($json,true);
  
  // Populate User name from JSON $obj array and store into $name.
-$name = $obj['name'];
+$latitude = $obj['latitude'];
  
 // Populate User email from JSON $obj array and store into $email.
-$email = $obj['email'];
-
-// Populate Password from JSON $obj array and store into $password.
-$comment = $obj['comment'];
-
+$longitude = $obj['longitude'];
  
+
+$Email = $obj['Email'];
+
  // Creating SQL query and insert the record into MySQL database table.
-$Sql_Query = "insert into Join_our_team (name,email,comment,type) values ( '$name','$email','$comment' ,'customer')";
+$Sql_Query = "insert into order_form (LAT,LNG) values ('$latitude','$longitude') WHERE Email='$Email'";
  
  
  if(mysqli_query($con,$Sql_Query)){
  
  // If the record inserted successfully then show the message.
-$MSG = 'comment send  Successfully';
+$MSG = 'vehicle Added Successfully' ;
  
 // Converting the message into JSON format.
 $json = json_encode($MSG);
@@ -40,14 +38,8 @@ $json = json_encode($MSG);
  
  }
  else{
-	 
-$MSG = 'errrror ';
  
-
-$json = json_encode($MSG);
- 
- 
- echo $json;
+ echo 'Try Again';
  
  }
  

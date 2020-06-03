@@ -57,10 +57,12 @@ $json = json_encode($MSG);
  echo $json;
  
  }
+ 
+ 
   }
   else{
 
- $EmailExistMSG = 'error, Please Try Again !!!';
+ $EmailExistMSG = 'Error In Admin ID!!!';
  
  // Converting the message into JSON format.
 $EmailExistJson = json_encode($EmailExistMSG);

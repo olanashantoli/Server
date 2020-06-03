@@ -11,9 +11,15 @@
   
   // decoding the received JSON and store into $obj variable.
   $obj = json_decode($json,true);
-$Email = $obj['email'];
-$ID = $obj['ID'];
-	$Sql_Query = "update  order_form SET Status = 'Not Done'   WHERE ProviderEmail='$Email' and ID ='$ID' ";
+$plate = $obj['plate_num'];//منها بدي احدد نوع السيارة 
+ $Email = $obj['Email']; // user email
+	$latitude = $obj['latitude'];///موقع اليوزر
+	$longitude = $obj['longitude'];// موقع اليوزر
+	 $ProviderEmail = $obj['ProviderEmail'];
+	 $OrderType=$obj['OrderType'];
+	 
+	 
+	$Sql_Query = "update order_form set ProviderEmail='$ProviderEmail' where CustomerEmail='$Email' AND Vehicle='$plate' AND Status='Need Help' AND  OrderType =  '$OrderType'";//"LAT='latitude' AND LNG='longitude'
  
  
  if(mysqli_query($con,$Sql_Query)){

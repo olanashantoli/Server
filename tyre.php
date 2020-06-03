@@ -25,6 +25,10 @@ $rad = $obj['rad'];
 
 $Email = $obj['Email'];
 
+$latitude = $obj['latitude'];
+ 
+// Populate User email from JSON $obj array and store into $email.
+$longitude = $obj['longitude'];
 
 //Checking Email is already exist or not using SQL query.
 $CheckSQL = "SELECT * FROM customervehicles WHERE Email='$Email' AND PlateNumber='$plate' ";
@@ -37,7 +41,7 @@ if(isset($check)){
 
  
  // Creating SQL query and insert the record into MySQL database table.
-$Sql_Query = "insert into order_form (OrderType,Vehicle, Information , Status, CustomerEmail) values ( '$Type','$plate', 'type :$type , quantity : $num , rad of tyre :$rad','Need Help','$Email')";
+$Sql_Query = "insert into order_form (OrderType,Vehicle, Information , Status, CustomerEmail,LAT,LNG) values ( 'RepairingAndChangingTyre','$plate', 'type :$type , quantity : $num , rad of tyre :$rad','Need Help','$Email','$latitude','$longitude')";
  
  
  if(mysqli_query($con,$Sql_Query)){

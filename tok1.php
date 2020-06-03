@@ -16,30 +16,38 @@ if ($conn->connect_error) {
   $obj = json_decode($json,true);
   
 $Email = $obj['email'];
+$ID = $obj['ID'];
 //$Donee = $obj['Done'];
  //if($Done=='0'){
   // $EmailL = $_SESSION['Email']; 
 // Creating SQL command to fetch all records from Table.
 //$sql = "SELECT * FROM order_form WHERE Status = 'In Progress' and ProviderEmail='$Email'";//and ProviderEmail='$Email'
 $sql = 
- "SELECT order_form.*, customervehicles.*, cusomer.Name,cusomer.Phone
-FROM ((order_form
-INNER JOIN customervehicles ON order_form.CustomerEmail = customervehicles.Email)
-INNER JOIN cusomer ON order_form.CustomerEmail = cusomer.Email)
-WHERE order_form.Status = 'In Progress' and order_form.ProviderEmail='$Email' and order_form.CustomerEmail = customervehicles.Email  and order_form.Vehicle = customervehicles.PlateNumber  and order_form.CustomerEmail = cusomer.Email ";
+ "SELECT cusomer.Token
+FROM (order_form
 
-$result = $conn->query($sql);
+INNER JOIN cusomer ON order_form.CustomerEmail = cusomer.Email)
+WHERE order_form.Status = 'Need Help' and order_form.ProviderEmail='$Email'    and order_form.CustomerEmail = cusomer.Email and order_form.ID ='$ID'";
+
+//$result = mysqli_query($conn, $sql);//
+$result = $conn->query($sql);//
+ //$result = $conn->query($sql);
+if (mysqli_query($conn,$sql)){
+// $result =mysqli_query($conn,$sql);
+//$r2=  $result->fetch_assoc();
+	 if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+  }
+} else {
+  echo "0 results";
+}
+$MSG = $result;
  
-if ($result->num_rows >0) {
+
+$json = json_encode($MSG);
  
- 
- while($row[] = $result->fetch_assoc()) {
- 
- $item = $row;
- 
- $json = json_encode($item);
- 
- }
   echo $json;
 }
  else {

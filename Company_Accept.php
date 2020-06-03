@@ -13,7 +13,7 @@
   $obj = json_decode($json,true);
 $Email = $obj['email'];
 $ID = $obj['ID'];
-	$Sql_Query = "update  order_form SET Status = 'Not Done'   WHERE ProviderEmail='$Email' and ID ='$ID' ";
+	$Sql_Query = "update  order_form SET Status = 'In Progress'   WHERE ProviderEmail='$Email' and ID ='$ID' ";
  
  
  if(mysqli_query($con,$Sql_Query)){

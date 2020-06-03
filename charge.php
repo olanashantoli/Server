@@ -20,6 +20,11 @@ $type = 'Battery_Charge';
 $plate = $obj['plate_num'];
 
  $Email = $obj['Email'];
+  // Populate User name from JSON $obj array and store into $name.
+$latitude = $obj['latitude'];
+ 
+// Populate User email from JSON $obj array and store into $email.
+$longitude = $obj['longitude'];
 
 //Checking Email is already exist or not using SQL query.
 $CheckSQL = "SELECT * FROM customervehicles WHERE Email='$Email' AND PlateNumber='$plate' ";
@@ -31,7 +36,7 @@ $check = mysqli_fetch_array(mysqli_query($con,$CheckSQL));
 if(isset($check)){
  
  // Creating SQL query and insert the record into MySQL database table.
-$Sql_Query = "insert into order_form (OrderType,Vehicle, Status, CustomerEmail) values ( '$type','$plate','Need Help','$Email')";
+$Sql_Query = "insert into order_form (OrderType,Vehicle, Status, CustomerEmail,LAT,LNG) values ( '$type','$plate','Need Help','$Email','$latitude','$longitude')";
  
  
  if(mysqli_query($con,$Sql_Query)){
@@ -44,6 +49,8 @@ $json = json_encode($MSG);
  
 // Echo the message.
  echo $json ;
+ 
+
  
  }
  else{

@@ -16,17 +16,14 @@ if ($conn->connect_error) {
   $obj = json_decode($json,true);
   
 $Email = $obj['email'];
+$ID = $obj['ID']; //provider email
 //$Donee = $obj['Done'];
  //if($Done=='0'){
   // $EmailL = $_SESSION['Email']; 
 // Creating SQL command to fetch all records from Table.
 //$sql = "SELECT * FROM order_form WHERE Status = 'In Progress' and ProviderEmail='$Email'";//and ProviderEmail='$Email'
 $sql = 
- "SELECT order_form.*, customervehicles.*, cusomer.Name,cusomer.Phone
-FROM ((order_form
-INNER JOIN customervehicles ON order_form.CustomerEmail = customervehicles.Email)
-INNER JOIN cusomer ON order_form.CustomerEmail = cusomer.Email)
-WHERE order_form.Status = 'In Progress' and order_form.ProviderEmail='$Email' and order_form.CustomerEmail = customervehicles.Email  and order_form.Vehicle = customervehicles.PlateNumber  and order_form.CustomerEmail = cusomer.Email ";
+ "SELECT companies.Token FROM companies WHERE  companies.Email ='$ID'";
 
 $result = $conn->query($sql);
  

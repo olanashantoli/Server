@@ -24,6 +24,7 @@ $Password = $obj['password'];
 // Populate Password from JSON $obj array and store into $password.
 $Phone = $obj['phone'];
  
+ $Token = $obj['TOK'];
 //Checking Email is already exist or not using SQL query.
 $CheckSQL = "SELECT * FROM cusomer WHERE Email='$Email'";
  
@@ -45,7 +46,7 @@ $EmailExistJson = json_encode($EmailExistMSG);
  else{
  
  // Creating SQL query and insert the record into MySQL database table.
-$Sql_Query = "insert into cusomer (Name,Email,Password,Phone) values ('$Name','$Email','$Password','$Phone')";
+$Sql_Query = "insert into cusomer (Name,Email,Password,Phone,Token) values ('$Name','$Email','$Password','$Phone','$Token')";
  
  
  if(mysqli_query($con,$Sql_Query)){
